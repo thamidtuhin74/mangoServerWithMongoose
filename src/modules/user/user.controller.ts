@@ -1,6 +1,7 @@
+import { request, Request, Response } from "express";
 import User from "./user.model";
 
-const registerUser = async (req, res) =>{
+const registerUser = async (req: Request, res: Response) =>{
     const payload =  req.body;
     const user = new User(payload);
 
@@ -12,11 +13,11 @@ const registerUser = async (req, res) =>{
         data,
     })
 }
-const getUser =  async (req, res) =>{
+const getUser =  async (req: Request, res: Response) =>{
     // const payload =  req.query;
-    const data =  User;
+    const data = await User.find();
 
-    res.json({
+    res.send({
         seccess : true,
         message: "All User there",
         data
