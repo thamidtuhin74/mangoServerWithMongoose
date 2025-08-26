@@ -3,6 +3,7 @@ import { Imango } from "./mango.interface";
 
 // name:string;
 //     varity: string;
+// quality: string
 //     unit: "KG" |"TON";
 //     price: string;
 //     stock: string;
@@ -12,7 +13,11 @@ import { Imango } from "./mango.interface";
 const mangoSchema = new Schema<Imango>(
     {
     name: {type: String ,trim: true, required: true, },
-    varity: {type: String ,trim: true, required: true, },
+    varity: {type: String ,trim: true, required: true, unique: true, },
+    quality: {type: String , required: true, enum: {
+        values: ["A-Grade","B-Grade","C-Grade"],
+        message: `{VALUE} is not supported`
+    }, default: "A-Grade" },
     unit: {type: String , required: true, enum: {
         values: ["KG","TON"],
         message: `{VALUE} is not supported`
@@ -33,3 +38,5 @@ const mangoSchema = new Schema<Imango>(
 )
 
 const Mango = model<Imango>("Mango", mangoSchema);
+
+export default Mango;
